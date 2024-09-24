@@ -4,42 +4,74 @@ import java.util.Iterator;
 
 public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
 
-    private int capacity;
-    private transient Object[] elements;
+    private final int capacity;
+    private final transient Object[] elements;
 
     private int head;
 
     private int tail;
 
     public ArrayQueue(int capacity) {
-        this.capacity = capacity;
-        elements = new Object[capacity + 1];
-        head = 0;
-        tail = capacity;
+        this.capacity = capacity + 1;
+        elements = new Object[this.capacity];
     }
 
     @Override
     public boolean offer(E value) {
-        return false;
+        if (isFull()) {
+            return false;
+        }
+        elements[tail] = value;
+        tail = (tail + 1) % capacity;
+        return true;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E poll() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        Object element = elements[head];
+        head = (head + 1) % capacity;
+        return (E) element;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E peek() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        return (E) elements[head];
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return head == tail;
+    }
+
+    public boolean isFull() {
+        return (tail + 1) % capacity == head;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<>() {
+            int cursor = head;
+
+            @Override
+            public boolean hasNext() {
+                return cursor != tail;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public E next() {
+                Object element = elements[cursor];
+                cursor = (cursor + 1) % capacity;
+                return (E) element;
+            }
+        };
     }
 }
