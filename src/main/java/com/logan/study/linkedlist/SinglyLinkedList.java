@@ -121,6 +121,9 @@ public class SinglyLinkedList<E> implements Iterable<E> {
 
         @Override
         public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             E val = cursor.val;
             cursor = cursor.next;
             return val;
@@ -131,7 +134,7 @@ public class SinglyLinkedList<E> implements Iterable<E> {
         E val;
         Node<E> next;
 
-        public Node(E val, Node<E> next) {
+        Node(E val, Node<E> next) {
             this.val = val;
             this.next = next;
         }

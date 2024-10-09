@@ -12,7 +12,7 @@ public class SinglyLinkedListTest {
     private SinglyLinkedList<Integer> linkedList;
 
     @BeforeEach
-    public void add() {
+    public void setUp() {
         linkedList = new SinglyLinkedList<>();
         linkedList.add(1);
         linkedList.add(2);

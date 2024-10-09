@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MergeLinkedListTest {
 
-
     @Test
     public void testMerge() {
         Node<Integer> l1 = Node.of(1, 3, 8, 9);

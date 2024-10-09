@@ -1,6 +1,7 @@
 package com.logan.study.queue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
     private final Node<E> head = new Node<>(null, null);
@@ -72,6 +73,9 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
 
             @Override
             public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 E val = p.val;
                 p = p.next;
                 return val;
@@ -83,7 +87,7 @@ public class LinkedListQueue<E> implements Queue<E>, Iterable<E> {
         E val;
         Node<E> next;
 
-        public Node(E val, Node<E> next) {
+        Node(E val, Node<E> next) {
             this.val = val;
             this.next = next;
         }

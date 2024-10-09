@@ -1,6 +1,7 @@
 package com.logan.study.queue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
 
@@ -68,6 +69,9 @@ public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
             @Override
             @SuppressWarnings("unchecked")
             public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 Object element = elements[cursor];
                 cursor = (cursor + 1) % capacity;
                 return (E) element;
